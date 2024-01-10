@@ -1,0 +1,35 @@
+
+
+:root{
+    --mycolor01:#9EA2AB;  
+    --mycolor02:#6d8db6;
+    --mycolor03:#FFCC71;
+    --mycolor04:#A16F3A;
+    --mycolor05:#FFEFA1;
+    --mycolor06:#FFB21A;
+    --mycolor07:#876363;
+    --mycolor08:#414B6F;
+    --mycolor09:#B12C25;
+    --mycolor10:#F3d3c1;
+    --mycolor11:#D36d3d;
+    --mycolor12:#EF6E2C;
+    --mycolor13:#61217c;
+    --mycolor14:#FFCC71;
+    --mycolor15:#FE6323;
+    --mycolor16:#9c1e20;
+    --mycolor17:#EE1D47;
+    --mycolor18:#EDC9E0;
+    --mycolor19:#F4AD45;
+    --mycolor20:#AD184F;
+    --mycolor21:#ca4026;
+    --mycolor22:#7e1331;
+    --mycolor23:#37419A;
+    --mycolor24:#DAB2D3;
+
+    --mytxtb:#000000;
+    --mytxtw:#ffffff;
+}
+.bg-cover{
+    background-position: center center;
+    background-size: cover;
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>口罩地圖</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/my.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 vh-100 bg-success">
+                <select class="form-select form-select-lg my-3" aria-label=".form-select-lg example" id="cityname">
+                    <option selected>---縣市名稱---</option>
+                    <option value="1">台北市</option>
+                    <option value="2">台中市</option>
+                    <option value="3">台南市</option>
+                </select>
+                <select class="form-select form-select-lg my-3" aria-label=".form-select-lg example" id="areaname">
+                    <option selected>---鄉鎮區---</option>
+                    <option value="1">西屯區</option>
+                    <option value="2">南屯區</option>
+                    <option value="3">北屯區</option>
+                </select>
+            </div>
+            <div class="col-md-9 bg-warning"></div>
+        </div>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        var citydata; //紀錄所有的資料
+        var selectCity; //紀錄選取的縣市名稱
+        var selectCounty; //紀錄選取的縣市名稱的鄉鎮區資料
+
+        $(function () {
+            //載入口罩地圖資料
+            $.ajax({
+                type: "GET",
+                url: "js/points.json",
+                dataType: "json",
+                success: showdata,
+                error: function () {
+                    alert("error");
+                }
+            });
+
+            //載入縣市名稱資料
+            $.ajax({
+                type: "GET",
+                url: "js/CityCountyData.json",
+                dataType: "json",
+                success: showdata_CityCounty,
+                error: function () {
+                    alert("error");
+                }
+            });
+
+            //監聽cityname change
+            $("#cityname").change(function(){
+                console.log($(this).val());
+                selectCity = $(this).val();
+                citydata.find(function(item){
+                    if(item.CityName == selectCity){
+                        selectCounty = item.AreaList;
+                    }
+                });
+                console.log(selectCounty);
+                $("#areaname").empty();
+                $("#areaname").append('<option disabled selected>---鄉鎮區名稱---</option>');
+                selectCounty.forEach(function(item){
+                    var strHTML = '<option value="' + item.AreaName+ '">' + item.AreaName +'</option>';
+                    $("#areaname").append(strHTML);
+                });
+            });
+        });
+
+        function showdata(data) {
+         //   console.log(data.features);
+        }
+
+        function showdata_CityCounty(data) {
+            console.log(data);
+            citydata = data;
+
+
+            $("#cityname").empty();
+            $("#cityname").append('<option disabled selected>---縣市名稱---</option>');
+            data.forEach(function(item){
+                console.log(item.CityName);
+                var strHTML = '<option value="'+item.CityName+'">'+item.CityName+'</option>';
+                $("#cityname").append(strHTML);
+            });
+        }
+    </script>
+</body>
+
+</html>
